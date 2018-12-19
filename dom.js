@@ -1,92 +1,82 @@
-(function(win, document) {
+(function (window) {
   'use strict';
-  function DOM(elements) {
-    if(!(this instanceof DOM))
-      return new DOM(elements);
-      
-    this.element = document.querySelectorAll(elements);
+
+  function DOM (selectorString) {
+    this.element = document.querySelectorAll(selectorString);
   }
 
-  DOM.isArray = function isArray (obj) {
-    return getObjType(obj) === '[object Array]';
-  };
+  DOM.isArray = function (element) {
+    return Object.prototype.toString.call(element) === '[object Array]';
+  }
 
-  DOM.isObject = function isObject (obj) {
-    return getObjType(obj) === '[object Object]';
-  };
+  DOM.isObject = function (element) {
+    return Object.prototype.toString.call(element) === '[object Object]';
+  }
 
-  DOM.isFunction = function isFunction (obj) {
-    return getObjType(obj) === '[object Function]';
-  };
+  DOM.isFunction = function (element) {
+    return Object.prototype.toString.call(element) === '[object Function]';
+  }
 
-  DOM.isNumber = function isNumber (obj) {
-    return getObjType(obj) === '[object Number]';
-  };
+  DOM.isNumber = function (element) {
+    return Object.prototype.toString.call(element) === '[object Number]';
+  }
 
-  DOM.isString = function isString (obj) {
-    return getObjType(obj) === '[object String]';
-  };
+  DOM.isString = function (element) {
+    return Object.prototype.toString.call(element) === '[object String]';
+  }
 
-  DOM.isBoolean = function isBoolean (obj) {
-    return getObjType(obj) === '[object Boolean]';
-  };
+  DOM.isBoolean = function (element) {
+    return Object.prototype.toString.call(element) === '[object Boolean]';
+  }
 
-  DOM.isNull = function isNull (obj) {
-    return (
-      getObjType(obj) === '[object Null]' ||
-      getObjType(obj) === '[object Undefined]'
-    );
-  };
+  DOM.isNull = function (element) {
+    return Object.prototype.toString.call(element) === '[object Null]' ||
+      Object.prototype.toString.call(element) === '[object Undefined]';
+  }
 
-  DOM.prototype.on = function on(eventName, callback) {
-    Array.prototype.forEach.call(this.element, function(element) {
-      element.addEventListener(eventName, callback, false);
+  DOM.prototype.on = function (eventType, callback) {
+    Array.prototype.forEach.call(this.element, function (element) {
+      element.addEventListener(eventType, callback);
     });
-  };
+  }
 
-  DOM.prototype.off = function off(eventName, callback) {
-    Array.prototype.forEach.call(this.element, function(element) {
-      element.removeEventListener(eventName, callback, false);
+  DOM.prototype.off = function (eventType, callback) {
+    Array.prototype.forEach.call(this.element, function (element) {
+      element.removeEventListener(eventType, callback);
     });
-  };
+  }
 
-  DOM.prototype.get = function get(index) {
-    if(!index)
-    return this.element[0];
-  return this.element[index];
-  };
+  DOM.prototype.get = function () {
+    return this.element;
+  }
 
-  DOM.prototype.forEach = function forEach() {
-    Array.prototype.forEach.apply(this.element, arguments);
-  };
+  DOM.prototype.forEach = function (callback) {
+    Array.prototype.forEach.call(this.element, callback);
+  }
 
-  DOM.prototype.map = function map() {
-    return Array.prototype.map.apply(this.element, arguments);
-  };
+  DOM.prototype.map = function (callback) {
+    Array.prototype.map.call(this.element, callback);
+  }
 
-  DOM.prototype.filter = function filter() {
-    return Array.prototype.filter.apply(this.element, arguments);
-  };
+  DOM.prototype.filter = function (callback) {
+    Array.prototype.filter.call(this.element, callback);
+  }
 
-  DOM.prototype.reduce = function reduce() {
-    return Array.prototype.reduce.apply(this.element, arguments);
-  };
+  DOM.prototype.reduce = function (callback) {
+    Array.prototype.reduce.call(this.element, callback);
+  }
 
-  DOM.prototype.reduceRight = function reduceRight() {
-    return Array.prototype.reduceRight.apply(this.element, arguments);
-  };
+  DOM.prototype.reduceRight = function (callback) {
+    Array.prototype.reduceRight.call(this.element, callback);
+  }
 
-  DOM.prototype.every = function every() {
-    return Array.prototype.every.apply(this.element, arguments);
-  };
+  DOM.prototype.every = function (callback) {
+    Array.prototype.every.call(this.element, callback);
+  }
 
-  DOM.prototype.some = function some() {
-    return Array.prototype.some.apply(this.element, arguments);
-  };
-
-  function getObjType(obj) {
-    return Object.prototype.toString.call(obj);
+  DOM.prototype.some = function (callback) {
+    Array.prototype.some.call(this.element, callback);
   }
 
   window.DOM = DOM;
-})(window, document);
+}(window)); 
